@@ -32,6 +32,8 @@ $lang['highlight'] = 'Destacar';
 $lang['remove_highlight'] = 'Tirar destaque';
 $lang['activate'] = 'Ativar';
 $lang['deactivate'] = 'Desativar';
+$lang['page'] = 'Página inicial';
+$lang['last_page'] = 'Página final';
 
 // HELP
 

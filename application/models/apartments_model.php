@@ -26,16 +26,18 @@ class Apartments_model extends MY_Model {
 	 * Get ZAP apartments
 	 */
 
-	public function get_zap_apartments($debug = false){
+	public function get_zap_apartments($page = 1, $last_page = false, $debug = false){
 		$this->load->helper('file');
 		$this->load->helper('dom');
 		$this->load->spark('curl/1.2.1');
 
 		$errors = array();
 
-		$last = 1;
-		$page = 1;
+		$last = $last_page === false ? $page : $last_page;
+		$last_found = false;
+
 		while($page <= $last){
+
 			// execute curl
 			$this->curl->create($this->zap_url . $page);
 
@@ -54,13 +56,18 @@ class Apartments_model extends MY_Model {
 				// convert to dom
 				$html = str_get_html($response);
 
-				$link = $html->find('#ctl00_ContentPlaceHolder1_rptPaginacaoBaixo_ctl09_lnkUltimo', 0);
-				if ($link !== null && $last === 1){
-					$parts = parse_url($link->href);
-					parse_str(str_replace('&amp;', '&', $parts['query']), $query);
-					$last = (int) $query['pag'];
+				if ($last_page === false){
 
-					if ($debug === true) { echo 'last: ' . $last . br(); }
+					$link = $html->find('a.pagNextAll', 0);
+					if ($link !== null && $last_found === false){
+
+						$parts = parse_url($link->href);
+						parse_str(str_replace('&amp;', '&', $parts['query']), $query);
+						$last = (int) $query['pag'];
+						$last_found = true;
+
+						if ($debug === true) { echo 'last: ' . $last . br(); }
+					}
 				}
 
 				// loop through apartments
@@ -153,7 +160,7 @@ class Apartments_model extends MY_Model {
 
 					if ($debug === true) {
 						// output debug
-						echo 'page: ' . $page . br() . '<strong>' . $apartment->zap_id . '</strong>'. br();
+						echo 'url: ' . internal_anchor($this->zap_url . $page) . br() . '<strong>' . $apartment->zap_id . '</strong>'. br();
 
 						$fields = array('url', 'zap_id', 'neighborhood', 'street', 'price', 'area', 'rooms', 'zap_date', 'image', 'realtor');
 						foreach($fields as $field){
@@ -171,11 +178,19 @@ class Apartments_model extends MY_Model {
 					if ($success === false){
 						$errors[] = '<strong>' . $apartment->zap_id . '</strong> - ' . $apartment->error->string;
 					}
+
+					unset($apartment);
 				}
 
 				// free html
 				unset($html);
+				unset($response);
+			}else{
+				if ($debug === true) {
+					echo 'url: ' . internal_anchor($this->zap_url . $page) . ' - no response' . br();
+				}
 			}
+
 			$page++;
 		}
 

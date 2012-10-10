@@ -64,6 +64,16 @@ class Apartments extends Crud_Controller{
 				'required' => true,
 				'default_value' => 1,
 			),
+			'page' => array(
+				'type' => 'text',
+				'required' => true,
+				'class' => 'span1',
+				'default_value' => 1,
+			),
+			'last_page' => array(
+				'type' => 'text',
+				'class' => 'span1',
+			),
 		);
 		$params = array('icon' => 'icon-home', 'modal' => true, 'modal_body' => $this->build_form->render_elements($fields), 'modal_footer' => '<em>* ' . $this->lang->line('mandatory') . '</em>');
 		$this->actions->load('direct', 'get_apartments', null, $params);
@@ -116,7 +126,12 @@ class Apartments extends Crud_Controller{
 
 	public function get_apartments(){
 		$debug = $this->input->post('debug') == 2 ? true : false;
-		$success = $this->apartments_model->get_zap_apartments($debug);
+		$page = $this->input->post('page');
+		$page = is_numeric($page) ? $page : 1;
+		$last_page = $this->input->post('last_page');
+		$last_page = empty($last_page) ? false : $last_page;
+
+		$success = $this->apartments_model->get_zap_apartments((int) $page, $last_page, $debug);
 
 		// output results
 		if ($success === true){
