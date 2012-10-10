@@ -3,7 +3,7 @@
 #################
 
 content/*
-assets/cache/*
+#assets/cache/*
 
 #################
 ## Codeigniter
