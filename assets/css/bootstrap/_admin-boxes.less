@@ -1,0 +1,128 @@
+//
+// Admin form containers
+// --------------------------------------------------
+
+// Containers
+// -------------------------	
+
+.box {
+  margin-bottom: @baseLineHeight;			
+  background-color: @white;
+  border: 1px solid @borderColor;
+  *border: 1px solid @borderColor; /* IE6-7 */
+  .box-shadow(0 3px 7px rgba(0,0,0,0.3));
+  .border-radius(4px);
+}
+
+.box-header{
+ 	border-bottom: 1px solid @borderColor;
+ 	.alert{
+	  border-left: none;
+	  border-right: none;
+	  .border-radius(0px);	 	
+ 	}
+}
+
+.box-header-dashboard{
+	#gradient > .vertical(@navbarBackgroundHighlight, @navbarBackground);
+	padding: 10px @containerSmallPadding !important;
+}
+
+.box-footer{
+ 	border-top: 1px solid @borderColor; 	
+	.btn{
+	 	margin: 0 @baseLineHeight / 2 0 0;
+ 	}	
+ 	&.center-form{
+		.btn{
+		 	margin: 0 @baseLineHeight / 2;
+	 	} 	
+	}	
+	.help-block{
+		padding-top: @baseLineHeight / 2;
+	}			 			
+}
+
+.box-large{	
+ // padding: @containerLargePadding 0 @containerLargePadding 0;
+  .box-header{
+	 	padding: @containerLargePadding;
+	 	.alert{
+		  margin: @containerLargePadding -@containerLargePadding 0;
+		  padding-left: @containerLargePadding;
+		  padding-right: @containerLargePadding + 21;		  
+		}  	
+  }
+	.box-inner{
+	 	padding: @containerLargePadding ;	
+	}
+	.box-footer{	
+		padding: @containerLargePadding;		
+		&.no-top-border{
+		 	border-top: 0px solid @borderColor; 		
+		 	padding-top: 0px !important;
+		 	margin-top: -@baseLineHeight;
+		} 	
+	}	
+}
+
+.box-small{	
+  //padding: @containerSmallPadding 0 @containerSmallPadding 0;
+  .box-header{
+	 	padding: @containerSmallPadding;
+	 	.alert{
+		  margin: @containerSmallPadding -@containerSmallPadding 0;
+		  padding-left: @containerSmallPadding;
+		  padding-right: @containerSmallPadding + 21;		  
+		}  	
+  }
+	.box-inner{
+	 	padding: @containerSmallPadding;	
+	}
+	.box-footer{	
+		padding: @containerSmallPadding;	
+	}	  
+}
+
+// Etc
+// -------------------------
+
+.modal-header {
+  border-bottom: 1px solid @borderColor;
+}
+
+.modal-footer {
+  background-color: @white;
+  border-top: 1px solid #ddd;
+  .btn + .btn {
+    margin-left: 5px;
+    margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
+  }
+  // but override that for button groups
+  .btn-group .btn + .btn {
+    margin-left: -1px;
+  }
+}
+
+.form-horizontal .box-footer{
+	padding-left: 160px + @baseLineHeight;
+}
+
+.form-horizontal .box-inner{
+	padding-bottom: @containerLargePadding !important;
+}
+
+.controls{
+	input, textarea, select, .uneditable-input{
+	  margin-right:  @baseLineHeight / 2;
+	}
+	.has-many{
+		margin-top: 8px;
+	}
+	.has-many:first-child{
+		margin-top: 0px;
+	}
+	textarea + span{
+		vertical-align: top;
+	}
+}
