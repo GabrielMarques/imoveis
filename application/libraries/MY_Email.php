@@ -45,7 +45,7 @@ class MY_Email extends CI_Email{
 
   public function send_email($recipients, $subject, $message){
   	if(ENVIRONMENT === 'development'){
-  		$recipients = array('gabrielmarques@dldbrasil.com.br');
+  		$recipients = array('gabriel@gabrielmarques.com.br');
   	}
 
   	$this->from($this->ci->config->item('site_email'), $this->ci->config->item('site_name_short'));

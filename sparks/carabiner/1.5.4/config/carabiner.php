@@ -29,12 +29,6 @@ $config['bootstrap_files'] = array(
 		'bootstrap/_admin-extend.less',
 		//'bootstrap/_admin-responsive.less',
 	),
-	'bootstrap/_front-bootstrap.less' => array(
-		'bootstrap/_front-bootstrap.less',
-		'bootstrap/_front-variables.less',
-		'bootstrap/_front-extend.less',
-		'bootstrap/_front-responsive.less',
-	),
 );
 
 /*
