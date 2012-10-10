@@ -96,7 +96,7 @@ $config['cache_dir'] = 'assets/cache/';
 
 switch(ENVIRONMENT){
 	case 'development':
-		$config['dev'] = false;
+		$config['dev'] = true;
 		break;
 	case 'staging':
 		$config['dev'] = false;
