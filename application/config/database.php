@@ -51,10 +51,10 @@ switch(ENVIRONMENT){
 		break;
 	case 'staging':
 	case 'production':
-		$db['default']['hostname'] = '127.0.0.1';
-		$db['default']['username'] = 'prodiveb_thiagod';
-		$db['default']['password'] = '6TNG>dw<@m';
-		$db['default']['database'] = 'imoveis';
+		$db['default']['hostname'] = 'mysql-shared-02.phpfog.com';
+		$db['default']['username'] = 'gabriel-80-59795';
+		$db['default']['password'] = 'pk38V74g58zI';
+		$db['default']['database'] = 'gabimoveis_phpfogapp_com';
 		$db['default']['db_debug'] = false;
 		break;
 }
