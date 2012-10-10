@@ -19,7 +19,7 @@ class Cron_jobs extends CI_Controller{
 	}
 
 	public function get_apartments($page = 1, $last_page = false, $debug = false){
-		//if($this->input->is_cli_request()){
+		if($this->input->is_cli_request()){
 			$page = is_numeric($page) ? $page : 1;
 			$last_page = empty($last_page) ? false : $last_page;
 			$debug = $debug == 'true' ? true : false;
@@ -27,7 +27,7 @@ class Cron_jobs extends CI_Controller{
 			$success = $this->apartments_model->get_zap_apartments($page, $last_page, $debug);
 
 			//log_message('info', 'Apartamentos atualizados');
-		//}
+		}
 	}
 
 }
