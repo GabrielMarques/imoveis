@@ -2,8 +2,10 @@
 ## Project
 #################
 
+web.config
+.htaccess
 content/*
-#assets/cache/*
+assets/cache/*
 
 #################
 ## Codeigniter
@@ -12,7 +14,7 @@ content/*
 */config/development
 */logs/log-*.php
 */logs/!index.html
-#*/cache/*
+*/cache/*
 */cache/!index.html
 
 #################
