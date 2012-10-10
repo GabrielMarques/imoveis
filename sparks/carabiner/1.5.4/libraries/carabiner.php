@@ -73,7 +73,7 @@ class Carabiner {
 
 		// check cache for problems
 		if (!file_exists($this->cache_path)){
-			mkdir($this->cache_path);
+			//mkdir($this->cache_path);
 			show_error('Carabiner: cache path does not exist: ' . $this->cache_path . '. Please set the cache path in config/carabiner.php.');
 		}
 		if (!is_writable($this->cache_path))
