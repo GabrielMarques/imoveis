@@ -125,7 +125,7 @@ class Apartment extends DataMapper {
 			'actions' => array(),
 		),
 		'zap_date' => array(
-			'type' => 'date',
+			'type' => 'str',
 			'rules' => array('required'),
 			'actions' => array('manage' => true, 'update' => false),
 		),

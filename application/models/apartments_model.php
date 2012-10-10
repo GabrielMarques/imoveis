@@ -145,6 +145,10 @@ class Apartments_model extends MY_Model {
 					//array_map('trim', $a);
 					$apartment->zap_date = $a[2] . '-' . $a[1] . '-' . $a[0];
 
+					if (is_valid_date($apartment->zap_date) === false){
+						continue;
+					}
+
 					// highlight?
 					if (
 						isset($apartment->area) &&
