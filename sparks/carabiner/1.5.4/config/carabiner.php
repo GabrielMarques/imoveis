@@ -99,10 +99,10 @@ switch(ENVIRONMENT){
 		$config['dev'] = true;
 		break;
 	case 'staging':
-		$config['dev'] = false;
+		$config['dev'] = true;
 		break;
 	case 'production':
-		$config['dev'] = false;
+		$config['dev'] = true;
 		break;
 }
 
