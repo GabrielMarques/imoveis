@@ -18,7 +18,13 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+
+	if (getenv('CI_ENVIRONMENT') !== false){
+		define('ENVIRONMENT', getenv('CI_ENVIRONMENT'));
+	}else{
+		define('ENVIRONMENT', 'development');
+	}
+
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
