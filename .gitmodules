@@ -1,0 +1,3 @@
+[submodule "sparks/admin/1.0.0"]
+	path = sparks/admin/1.0.0
+	url = git@gabriel-marques.beanstalkapp.com:/admin.git
