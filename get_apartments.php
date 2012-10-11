@@ -1,0 +1,1 @@
+<?php file_get_contents('http://gabimoveis.phpfogapp.com/cron_jobs/get_apartments');
