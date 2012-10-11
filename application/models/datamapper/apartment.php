@@ -50,7 +50,7 @@ class Apartment extends DataMapper {
 		),
 		'url' => array(
 			'type' => array('url' => 255),
-			'output_params' => array('url_limiter' => 20),
+			'output_params' => array('url_limiter' => 12),
 			'rules' => array('required', 'unique'),
 			'actions' => array('manage' => true, 'update' => false),
 		),

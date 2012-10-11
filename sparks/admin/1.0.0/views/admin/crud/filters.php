@@ -13,8 +13,8 @@ echo $this->build_form->render_elements();
 </div>
 <div class="box-footer">
 <?php
-echo form_button(array('content' => $this->lang->line('filters'), 'id' => 'filters-btn', 'class' => 'btn btn-primary')) . 
-	form_button(array('content' => $this->lang->line('reset'), 'id' => 'filters-reset-btn', 'class' => 'btn'));
+echo form_button(array('content' => $this->lang->line('filters'), 'id' => 'filters-btn', 'class' => 'btn btn-primary btn-small')) .
+	form_button(array('content' => $this->lang->line('reset'), 'id' => 'filters-reset-btn', 'class' => 'btn btn-small'));
 ?>
 </div>
 </div>
