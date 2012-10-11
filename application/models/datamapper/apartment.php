@@ -132,7 +132,7 @@ class Apartment extends DataMapper {
 		'modified' => array(
 			'type' => 'date',
 			'rules' => array(),
-			'actions' => array('manage' => true, 'update' => false),
+			'actions' => array('update' => false),
 		),
 		'type' => array(
 			'type' => array('int' => array(1, 3)),
