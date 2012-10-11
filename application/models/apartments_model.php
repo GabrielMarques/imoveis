@@ -14,7 +14,8 @@ class Apartments_model extends MY_Model {
 
 	private $connect_timeout = 5;
 	private $timeout_total = 10;
-	private $zap_url = 'http://www.zap.com.br/imoveis/rio-de-janeiro+rio-de-janeiro+bairros+capital---zona-sul/apartamento-padrao/venda/?tipobusca=rapida&rangeValor=1-1000000&foto=1&ord=precovenda&pag=';
+
+	private $zap_url = 'http://www.zap.com.br/imoveis/rio-de-janeiro+rio-de-janeiro+bairros+capital---zona-sul/apartamento-padrao/venda/valor-400.000-a-1.000.000+area-acima-de-60/?tipobusca=avancada&foto=1&ord=precovenda&pag=';
 	private $max_price_m2 = 10000;
 	private $max_price = 700000;
 
