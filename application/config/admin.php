@@ -52,7 +52,7 @@ $config['default_list_limit'] = 4;
 $config['default_details_list_limit'] = 20;
 $config['default_color_classes'] = array(1 => 'label-success', 2 => 'label-warning', 3 => 'label-important', 4 => 'label-info');
 $config['default_icon_classes'] = array(2 => 'icon-ok');
-$config['default_image_width'] = 100;
+$config['default_image_width'] = 75;
 
 /* End of file app.php */
 /* Location: ./application/config/app.php */
