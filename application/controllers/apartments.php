@@ -39,7 +39,7 @@ class Apartments extends Crud_Controller{
 		$apartments
 			->distinct()
 			->select('neighborhood')
-			->where('active', 2)
+			->where('status', 2)
 			->get();
 
 		if ($apartments->exists() === true){
@@ -51,7 +51,7 @@ class Apartments extends Crud_Controller{
 		// filters
 		$this->filters->load('neighborhood', 'multiselect', null, array('array_ready' => true, 'values_array' => $neighborhoods, 'values_as_keys' => true));
 		$this->filters->load('flagged', 'dropdown', null, array('values_array' => 'bool_options'));
-		$this->filters->load('active', 'dropdown', null, array('values_array' => 'bool_options'));
+		$this->filters->load('status', 'dropdown', null, array('values_array' => 'status_types'));
 		$this->filters->load('price', 'from_to', null, array('from_to_type' => 'number'));
 		$this->filters->load('zap_date', 'from_to', null);
 		$this->filters->load('rooms', 'multiselect', null, array('array_ready' => true, 'values_array' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4)));
@@ -92,8 +92,17 @@ class Apartments extends Crud_Controller{
 
 		$this->actions->load('table', 'highlight', null, array('icon' => 'icon-ok'));
 		$this->actions->load('table', 'remove_highlight', null, array('icon' => 'icon-remove'));
-		$this->actions->load('table', 'activate', null, array('icon' => 'icon-play'));
-		$this->actions->load('table', 'deactivate', null, array('icon' => 'icon-pause'));
+		
+		$fields = array(
+			'status' => array(
+				'type' => 'dropdown',
+				'values_array' => $this->config->item('status_types'),
+				'required' => true,
+			),
+		);
+		$params = array('icon' => 'icon-resize-horizontal', 'modal' => true, 'modal_body' => $this->build_form->render_elements($fields), 'modal_footer' => '<em>* ' . $this->lang->line('mandatory') . '</em>');
+		$this->actions->load('table', 'update_status', null, $params);
+		
 	}
 
 	public function index(){
@@ -171,7 +180,7 @@ class Apartments extends Crud_Controller{
 		$this->_rows_check($this->input->post('rows'));
 
 		// highlight
-		$success = $this->apartments_model->highlight($this->input->post('rows'), true);
+		$success = $this->apartments_model->flag($this->input->post('rows'), 2);
 
 		// output results
 		if ($success === true){
@@ -192,7 +201,7 @@ class Apartments extends Crud_Controller{
 		$this->_rows_check($this->input->post('rows'));
 
 		// highlight
-		$success = $this->apartments_model->highlight($this->input->post('rows'), false);
+		$success = $this->apartments_model->flag($this->input->post('rows'), 1);
 
 		// output results
 		if ($success === true){
@@ -206,35 +215,14 @@ class Apartments extends Crud_Controller{
 	}
 
 	/**
-	 * Activate
+	 * Change status
 	 */
 
-	public function activate(){
+	public function update_status(){
 		$this->_rows_check($this->input->post('rows'));
 
 		// activate
-		$success = $this->apartments_model->activate($this->input->post('rows'), true);
-
-		// output results
-		if ($success === true){
-			$this->alerts->alert('success_update_many', 'success');
-		}else{
-			$this->alerts->alert_error();
-		}
-
-		$this->session->set_flashdata('keep_table_params', true);
-		redirect($this->navigation->current_route);
-	}
-
-	/**
-	 * Deactivate
-	 */
-
-	public function deactivate(){
-		$this->_rows_check($this->input->post('rows'));
-
-		// activate
-		$success = $this->apartments_model->activate($this->input->post('rows'), false);
+		$success = $this->apartments_model->update_status($this->input->post('rows'), $this->input->post('status'));
 
 		// output results
 		if ($success === true){

@@ -24,14 +24,14 @@ $lang['description'] = 'Descrição';
 $lang['flagged'] = 'Dest.';
 $lang['past_prices'] = 'Preços anteriores';
 $lang['zap_images'] = 'Imagens';
+$lang['status'] = 'Situação';
 
 $lang['get_apartments'] = 'Buscar apartmentos ZAP';
 $lang['update_apartments'] = 'Atualizar apartmentos ZAP';
 $lang['debug'] = 'Debug';
 $lang['highlight'] = 'Destacar';
 $lang['remove_highlight'] = 'Tirar destaque';
-$lang['activate'] = 'Ativar';
-$lang['deactivate'] = 'Desativar';
+$lang['update_status'] = 'Alterar situação';
 $lang['page'] = 'Página inicial';
 $lang['last_page'] = 'Página final';
 

@@ -149,10 +149,11 @@ class Apartment extends DataMapper {
 			'rules' => array('required'),
 			'actions' => array('manage' => true),
 		),
-		'active' => array(
-			'type' => 'bool',
+		'status' => array(
+			'type' => array('int' => array(1, 3)),
+			'values_array' => 'status_types',		
 			'output_type' => 'label',
-			'output_params' => array('color_classes' => array(1 => 'label-important', 2 => 'label-success')),
+			'output_params' => array('color_classes' => array(1 => 'label-important', 2 => 'label-info', 3 => 'label-success')),
 			'rules' => array('required'),
 			'actions' => array('manage' => true),
 		),

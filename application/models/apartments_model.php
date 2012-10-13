@@ -93,7 +93,7 @@ class Apartments_model extends MY_Model {
 					}else{
 						$apartment->zap_id = $zap_id;
 						$apartment->url = $url;
-						$apartment->active = 2;
+						$apartment->status = 2;
 						$apartment->type = 1;
 						$apartment->flagged = 1;
 					}
@@ -321,39 +321,33 @@ class Apartments_model extends MY_Model {
 	}
 
 	/**
-	 * Highlight
+	 * Flag
 	 */
 
-	public function highlight($rows, $on = true){
-		if ($rows && is_array($rows)){
-			$objs = new Apartment();
-			if ($on === true){
-				$objs->where_in('id', $rows)->update('flagged', 2);
-			}else{
-				$objs->where_in('id', $rows)->update('flagged', 1);
-			}
-			return true;
-		}else{
+	public function flag($rows, $value = true){
+		if (is_array($rows) === false || $value <= 0 || $value > 2){
 			return false;
 		}
+	
+		$apartments = new Apartment();
+		$apartments->where_in('id', $rows)->update('flagged', $value);
+		
+		return true;	
 	}
 
 	/**
-	 * Activate
+	 * Change status
 	 */
 
-	public function activate($rows, $on = true){
-		if ($rows && is_array($rows)){
-			$objs = new Apartment();
-			if ($on === true){
-				$objs->where_in('id', $rows)->update('active', 2);
-			}else{
-				$objs->where_in('id', $rows)->update('active', 1);
-			}
-			return true;
-		}else{
+	public function update_status($rows, $status = 2){
+		if (is_array($rows) === false || $status <= 0 || $status > 3){
 			return false;
 		}
+		
+		$apartments = new Apartment();
+		$apartments->where_in('id', $rows)->update('status', $status);
+		
+		return true;
 	}
 
 }
