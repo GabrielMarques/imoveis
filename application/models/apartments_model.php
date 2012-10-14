@@ -10,6 +10,7 @@
  * @link
  */
 
+
 class Apartments_model extends MY_Model {
 
 	private $connect_timeout = 5;
