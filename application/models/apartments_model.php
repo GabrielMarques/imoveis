@@ -325,7 +325,7 @@ class Apartments_model extends MY_Model {
 	 */
 
 	public function flag($rows, $value = true){
-		if (is_array($rows) === false || $value <= 0 || $value > 2){
+		if (is_array($rows) === false || $value < 1 || $value > 2){
 			return false;
 		}
 	
@@ -340,7 +340,7 @@ class Apartments_model extends MY_Model {
 	 */
 
 	public function update_status($rows, $status = 2){
-		if (is_array($rows) === false || $status <= 0 || $status > 3){
+		if (is_array($rows) === false || $status < 1 || $status > 5){
 			return false;
 		}
 		
