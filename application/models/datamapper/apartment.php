@@ -149,6 +149,7 @@ class Apartment extends DataMapper {
 			'rules' => array('required'),
 			'actions' => array('manage' => true),
 		),
+		
 		'status' => array(
 			'type' => array('int' => array(1, 5)),
 			'values_array' => 'status_types',		
