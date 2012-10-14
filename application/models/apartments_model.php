@@ -17,7 +17,10 @@ class Apartments_model extends MY_Model {
 
 	private $zap_url = 'http://www.zap.com.br/imoveis/rio-de-janeiro+rio-de-janeiro+bairros+capital---zona-sul/apartamento-padrao/venda/valor-400.000-a-1.000.000+area-acima-de-60/?tipobusca=avancada&foto=1&ord=precovenda&pag=';
 	private $max_price_m2 = 10000;
-	private $max_price = 700000;
+	private $max_price = 800000;
+	private $min_area = 70;
+	private $min_rooms = 2;
+	private $neighborhoods = array('CATETE', 'GLORIA', 'SANTA TERESA', 'VIDIGAL');
 
 	public function __construct(){
 		parent::__construct();
@@ -104,7 +107,7 @@ class Apartments_model extends MY_Model {
 					// address
 					$address = $item->find('h3 span.location', 0)->plaintext;
 					$a = explode('-', $address);
-					$apartment->neighborhood = $a[0];
+					$apartment->neighborhood = trim($a[0]);
 					$apartment->street = $item->find('h3 span.street-address', 0)->plaintext;
 
 					// price
@@ -153,12 +156,14 @@ class Apartments_model extends MY_Model {
 					// highlight?
 					if (
 						isset($apartment->area) &&
-						$apartment->area > 70 &&
+						$apartment->area >= $this->min_area &&
 						isset($apartment->rooms) &&
-						$apartment->rooms > 2 &&
+						$apartment->rooms >= $this->min_rooms &&
 						isset($apartment->price) &&
 						$apartment->price <= $this->max_price &&
-						($apartment->price / $apartment->area) <= $this->max_price_m2
+						($apartment->price / $apartment->area) <= $this->max_price_m2 &&
+						isset($apartment->neighborhood) &&
+						in_array($apartment->neighborhood, $this->neighborhoods) === false						
 					){
 						$apartment->flagged = 2;
 					}
