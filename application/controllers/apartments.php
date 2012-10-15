@@ -53,7 +53,7 @@ class Apartments extends Crud_Controller{
 		$this->filters->load('flagged', 'dropdown', null, array('values_array' => 'bool_options'));
 		$this->filters->load('status', 'dropdown', null, array('values_array' => 'status_types'));
 		$this->filters->load('price', 'from_to', null, array('from_to_type' => 'number'));
-		$this->filters->load('zap_date', 'from_to', null);
+		$this->filters->load('area', 'from_to', null, array('from_to_type' => 'number'));
 		$this->filters->load('rooms', 'multiselect', null, array('array_ready' => true, 'values_array' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4)));
 
 		// actions
@@ -92,7 +92,7 @@ class Apartments extends Crud_Controller{
 
 		$this->actions->load('table', 'highlight', null, array('icon' => 'icon-ok'));
 		$this->actions->load('table', 'remove_highlight', null, array('icon' => 'icon-remove'));
-		
+
 		$fields = array(
 			'status' => array(
 				'type' => 'dropdown',
@@ -102,7 +102,7 @@ class Apartments extends Crud_Controller{
 		);
 		$params = array('icon' => 'icon-resize-horizontal', 'modal' => true, 'modal_body' => $this->build_form->render_elements($fields), 'modal_footer' => '<em>* ' . $this->lang->line('mandatory') . '</em>');
 		$this->actions->load('table', 'update_status', null, $params);
-		
+
 	}
 
 	public function index(){
