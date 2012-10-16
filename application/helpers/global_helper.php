@@ -113,12 +113,12 @@ function utf8_encode_array(&$item, $key){
  * Format && validation funcs
  */
 
-function format_currency($value, $add_symbol = true, $currency_symbol = 'default_currency_prefix'){
+function format_currency($value, $add_symbol = true, $currency_symbol = 'default_currency_prefix', $round = 2){
 	$ci =& get_instance();
 	if ($add_symbol === true){
-		return $ci->config->item($currency_symbol) . ' ' . number_format($value, 2, ',', '.');
+		return $ci->config->item($currency_symbol) . ' ' . number_format($value, $round, ',', '.');
 	}else{
-		return number_format($value, 2, ',', '.');
+		return number_format($value, $round, ',', '.');
 	}
 }
 

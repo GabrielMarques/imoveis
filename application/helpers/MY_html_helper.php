@@ -54,7 +54,8 @@ function get_html_output($value, $output_type =  'str', $params = null){
 			$final_value = format_date($value, 'default_day_year_format') . '<span data-value="' . strtotime($value) . '"></span>';
 			break;
 		case 'currency':
-			$currency_value = isset($params['symbol']) && $params['symbol'] === false ? format_currency($value, false) : format_currency($value);
+			$round = isset($params['round']) ? $params['round'] : 2;
+			$currency_value = isset($params['symbol']) && $params['symbol'] === false ? format_currency($value, false, 'default_currency_prefix', $round) : format_currency($value, true, 'default_currency_prefix', $round);
 			if (is_numeric($value)){
 				$final_value = $currency_value . '<span data-value="' . $value . '"></span>';
 			}else{

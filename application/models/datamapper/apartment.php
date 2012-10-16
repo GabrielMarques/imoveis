@@ -77,6 +77,7 @@ class Apartment extends DataMapper {
 		),
 		'price' => array(
 			'type' => 'currency',
+			'output_params'=> array('round' => '0'),			
 			'rules' => array('required', 'greater_than' => 0),
 			'actions' => array('manage' => true, 'update' => false),
 		),
@@ -84,6 +85,7 @@ class Apartment extends DataMapper {
 			'type' => 'func',
 			'select_function' => array('', array('@price', '[/]', '@area'), 'm2_price'),
 			'output_type' => 'currency',
+			'output_params'=> array('round' => '0'),			
 			'export_type' => 'currency',
 			'actions' => array('manage' => true),
 		),
