@@ -274,6 +274,14 @@ class Apartments_model extends MY_Model {
 					$apartment->parking = (int) str_replace(array('vaga', 'vagas'), '', $parking->plaintext);
 				}
 
+				// realtor
+				if (empty($apartment->realtor)){
+					$realtor = $html->find('h4.sellerName', 0);
+					if ($realtor !== null){
+						$apartment->realtor = $realtor->plaintext;
+					}
+				}
+
 				// realtor phone
 				if (empty($apartment->realtor_phone)){
 					$realtor_phone = $html->find('p#ctl00_ContentPlaceHolder1_contate_pVerTelefone', 0);
