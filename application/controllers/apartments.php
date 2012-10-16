@@ -169,6 +169,7 @@ class Apartments extends Crud_Controller{
 			$this->alerts->alert($this->lang->line('error_apartments') . br() . ul($success), 'error');
 		}
 
+		$this->session->set_flashdata('keep_table_params', true);
 		redirect($this->navigation->current_route);
 	}
 
