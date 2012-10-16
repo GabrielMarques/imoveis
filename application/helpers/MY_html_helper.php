@@ -147,7 +147,11 @@ function get_html_output($value, $output_type =  'str', $params = null){
 			}
 			break;
 		case 'url':
-			$url_label = isset($params['url_limiter']) && strlen($value) > $params['url_limiter'] ? substr($value, 0, $params['url_limiter']) . '...' : $value;
+			if (!isset($params['details']) || $params['details'] === false){
+				$url_label = isset($params['url_limiter']) && strlen($value) > $params['url_limiter'] ? substr($value, 0, $params['url_limiter']) . '...' : $value;				
+			}else{
+				$url_label = $value;
+			}
 			$final_value = anchor($value, $url_label, array('target' => '_blank'));
 			break;
 	}
