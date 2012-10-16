@@ -215,7 +215,7 @@ class Apartment extends DataMapper {
 			$values[] = anchor(
 				$anchor,
 				$img,
-				array('class' => 'thumbnail enlarge', 'rel' => 'gallery')
+				array('class' => 'thumbnail enlarge img-apartments', 'rel' => 'gallery')
 			);
 		}
 		return ul($values, array('class' => 'thumbnails'));
