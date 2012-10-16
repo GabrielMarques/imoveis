@@ -105,7 +105,7 @@ class Apartment extends DataMapper {
 		'realtor' => array(
 			'type' => array('str' => 255),
 			'rules' => array(),
-			'actions' => array('update' => false),
+			'actions' => array('manage' => true, 'update' => false),
 		),
 		/*
 		'realtor_url' => array(
