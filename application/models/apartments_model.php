@@ -17,8 +17,8 @@ class Apartments_model extends MY_Model {
 	private $timeout_total = 10;
 
 	private $zap_url = 'http://www.zap.com.br/imoveis/rio-de-janeiro+rio-de-janeiro+bairros+capital---zona-sul/apartamento-padrao/venda/valor-400.000-a-1.000.000+area-acima-de-60/?tipobusca=avancada&foto=1&ord=precovenda&pag=';
-	private $max_price_m2 = 10000;
-	private $max_price = 800000;
+	private $max_price_m2 = 11000;
+	private $max_price = 850000;
 	private $min_area = 70;
 	private $min_rooms = 2;
 	private $neighborhoods = array('CATETE', 'GLORIA', 'SANTA TERESA', 'VIDIGAL');
@@ -164,7 +164,7 @@ class Apartments_model extends MY_Model {
 						$apartment->price <= $this->max_price &&
 						($apartment->price / $apartment->area) <= $this->max_price_m2 &&
 						isset($apartment->neighborhood) &&
-						in_array($apartment->neighborhood, $this->neighborhoods) === false						
+						in_array($apartment->neighborhood, $this->neighborhoods) === false
 					){
 						$apartment->flagged = 2;
 					}
@@ -255,47 +255,45 @@ class Apartments_model extends MY_Model {
 				// convert to dom
 				$html = str_get_html($response);
 
-				// description
-				if (empty($apartment->description)){
-					$description = $html->find('div.fc-descricao h3', 0)->plaintext;
-					$description = substr($description, 0, 2000);
-					$apartment->description = utf8_encode(strip_tags($description));
-				}
-
-				// building costs
-				$building_costs = $html->find('li#ctl00_ContentPlaceHolder1_resumo_liCondominio span.featureValue', 0);
-				if ($building_costs !== null){
-					$apartment->building_costs = (int) str_replace(array('R$', '.', ' '), '', $building_costs->plaintext);
-				}
-
-				// parking
-				$parking = $html->find('li#ctl00_ContentPlaceHolder1_resumo_liQtdVagas span.featureValue', 0);
-				if ($parking !== null){
-					$apartment->parking = (int) str_replace(array('vaga', 'vagas'), '', $parking->plaintext);
-				}
-
-				// realtor
-				if (empty($apartment->realtor)){
-					$realtor = $html->find('h4.sellerName', 0);
-					if ($realtor !== null){
-						$apartment->realtor = $realtor->plaintext;
+				// deactivate
+				$deactivated = $html->find('div.erro_tit', 0)->plaintext;
+				if ($deactivated !== null){
+					$apartment->status = 1;
+				}else{
+					// description
+					if (empty($apartment->description)){
+						$description = $html->find('div.fc-descricao h3', 0)->plaintext;
+						$description = substr($description, 0, 2000);
+						$apartment->description = utf8_encode(strip_tags($description));
 					}
-				}
 
-				// realtor phone
-				if (empty($apartment->realtor_phone)){
-					$realtor_phone = $html->find('p#ctl00_ContentPlaceHolder1_contate_pVerTelefone', 0);
-					if ($realtor_phone !== null){
-						$apartment->realtor_phone = $realtor_phone->plaintext;
+					// building costs
+					$building_costs = $html->find('li#ctl00_ContentPlaceHolder1_resumo_liCondominio span.featureValue', 0);
+					if ($building_costs !== null){
+						$apartment->building_costs = (int) str_replace(array('R$', '.', ' '), '', $building_costs->plaintext);
 					}
-				}
 
-				// images
-				foreach($html->find('div#galleria a img') as $img) {
-					$zap_image = new Zap_image();
-					$zap_image->apartment_id = $apartment->id;
-					$zap_image->url = $img->src;
-					$zap_image->save();
+					// parking
+					$parking = $html->find('li#ctl00_ContentPlaceHolder1_resumo_liQtdVagas span.featureValue', 0);
+					if ($parking !== null){
+						$apartment->parking = (int) str_replace(array('vaga', 'vagas'), '', $parking->plaintext);
+					}
+
+					// realtor phone
+					if (empty($apartment->realtor_phone)){
+						$realtor_phone = $html->find('p#ctl00_ContentPlaceHolder1_contate_pVerTelefone', 0);
+						if ($realtor_phone !== null){
+							$apartment->realtor_phone = $realtor_phone->plaintext;
+						}
+					}
+
+					// images
+					foreach($html->find('div#galleria a img') as $img) {
+						$zap_image = new Zap_image();
+						$zap_image->apartment_id = $apartment->id;
+						$zap_image->url = $img->src;
+						$zap_image->save();
+					}
 				}
 
 				if ($debug === true) {
@@ -342,11 +340,11 @@ class Apartments_model extends MY_Model {
 		if (is_array($rows) === false || $value < 1 || $value > 2){
 			return false;
 		}
-	
+
 		$apartments = new Apartment();
 		$apartments->where_in('id', $rows)->update('flagged', $value);
-		
-		return true;	
+
+		return true;
 	}
 
 	/**
@@ -357,10 +355,10 @@ class Apartments_model extends MY_Model {
 		if (is_array($rows) === false || $status < 1 || $status > 5){
 			return false;
 		}
-		
+
 		$apartments = new Apartment();
 		$apartments->where_in('id', $rows)->update('status', $status);
-		
+
 		return true;
 	}
 
