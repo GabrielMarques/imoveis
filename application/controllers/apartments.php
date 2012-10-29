@@ -33,8 +33,12 @@ class Apartments extends Crud_Controller{
 		$this->load->model('apartments_model');
 
 		// get neighborhoods
-		$neighborhoods = array();
+		$status_types = $this->config->item('status_types');
+		$status_types = array_slice($status_types, 1, null, true);
 
+		$neighborhoods = array('COPACABANA', 'IPANEMA', 'LEME');
+
+		/*
 		$apartments = new Apartment();
 		$apartments
 			->distinct()
@@ -47,14 +51,21 @@ class Apartments extends Crud_Controller{
 				$neighborhoods[$apartment->neighborhood] = $apartment->neighborhood;
 			}
 		}
+		*/
+
+		// restrictions
+		$this->crud->load_restriction('status >=', 2);
+		$this->crud->load_restriction('rooms >=', 2);
+		$this->crud->load_restriction('neighborhood', array('COPACABANA', 'IPANEMA', 'LEME'), array('in' => true));
+
 
 		// filters
-		$this->filters->load('neighborhood', 'multiselect', null, array('array_ready' => true, 'values_array' => $neighborhoods, 'values_as_keys' => true));
+		$this->filters->load('neighborhood', 'dropdown', null, array('array_ready' => true, 'values_array' => $neighborhoods, 'values_as_keys' => true));
 		$this->filters->load('flagged', 'dropdown', null, array('values_array' => 'bool_options'));
-		$this->filters->load('status', 'dropdown', null, array('values_array' => 'status_types'));
+		$this->filters->load('status', 'multiselect', null, array('array_ready' => true, 'values_array' => $status_types));
 		$this->filters->load('price', 'from_to', null, array('from_to_type' => 'number'));
 		$this->filters->load('area', 'from_to', null, array('from_to_type' => 'number'));
-		$this->filters->load('rooms', 'multiselect', null, array('array_ready' => true, 'values_array' => array(1 => 1, 2 => 2, 3 => 3, 4 => 4)));
+		$this->filters->load('rooms', 'dropdown', null, array('array_ready' => true, 'values_array' => array(2 => 2, 3 => 3, 4 => 4)));
 
 		// actions
 		$fields = array(

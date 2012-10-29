@@ -1099,19 +1099,13 @@ class Crud_model extends MY_Model {
 	 */
 
 	public function load_restriction($field, $value, $params = array()){
-		if (isset($params['related'])){
-			$related_field = isset($params['related_field']) ? $params['related_field'] : 'id';
-
-			$this->restrictions[$field] = array(
-				'value' => $value,
-				'related' => $params['related'],
-				'related_field' => $related_field,
-			);
-		}else{
-			$this->restrictions[$field] = array(
-				'value' => $value,
-			);
-		}
+		$this->restrictions[] = array(
+			'field' => $field,
+			'value' => $value,
+			'or' => isset($params['or']) ? $params['or'] : false,
+			'in' => isset($params['in']) ? $params['in'] : false,
+			'related' => isset($params['related']) ? $params['related'] : false,
+		);
 	}
 
 	/**
@@ -1119,11 +1113,35 @@ class Crud_model extends MY_Model {
 	 */
 
 	public function set_restrictions(){
-		foreach($this->restrictions as $key => $restrict){
-  		if (isset($restrict['related'])){
-				$this->object->where_related($restrict['related'], $restrict['related_field'], $restrict['value']);
+		foreach($this->restrictions as $restrict){
+  		if ($restrict['related'] === true){
+  			if ($restrict['or'] === true){
+  				if ($restrict['in'] === true){
+						$this->object->or_where_in_related($restrict['related'], $restrict['field'], $restrict['value']);
+  				}else{
+						$this->object->or_where_related($restrict['related'], $restrict['field'], $restrict['value']);
+  				}
+  			}else{
+  				if ($restrict['in'] === true){
+						$this->object->where_in_related($restrict['related'], $restrict['field'], $restrict['value']);
+  				}else{
+						$this->object->where_related($restrict['related'], $restrict['field'], $restrict['value']);
+  				}
+  			}
   		}else{
-				$this->object->where($key, $restrict['value']);
+  			if ($restrict['or'] === true){
+  				if ($restrict['in'] === true){
+						$this->object->or_where($restrict['field'], $restrict['value']);
+  				}else{
+						$this->object->or_where_in($restrict['field'], $restrict['value']);
+  				}
+  			}else{
+  				if ($restrict['in'] === true){
+						$this->object->where_in($restrict['field'], $restrict['value']);
+  				}else{
+						$this->object->where($restrict['field'], $restrict['value']);
+  				}
+  			}
   		}
 		}
 	}

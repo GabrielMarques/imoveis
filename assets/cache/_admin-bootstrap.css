@@ -3559,6 +3559,10 @@ label.radio { font-weight:normal; }
 .row-fluid ul.thumbnails li.span2:nth-child(6n + 7) { margin-left:0px; }
 .row-fluid ul.thumbnails li { margin-bottom:10px; }
 .img-polaroid { border:1px solid #ddd; }
+.img-apartments {
+  overflow-y:hidden;
+  height:60px;
+}
 .thumbnail { border:1px solid #ddd; }
 a.img-link:hover img {
   border-color:#049cdb;
