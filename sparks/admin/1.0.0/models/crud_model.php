@@ -1114,7 +1114,7 @@ class Crud_model extends MY_Model {
 
 	public function set_restrictions(){
 		foreach($this->restrictions as $restrict){
-  		if ($restrict['related'] === true){
+  		if ($restrict['related'] !== false){
   			if ($restrict['or'] === true){
   				if ($restrict['in'] === true){
 						$this->object->or_where_in_related($restrict['related'], $restrict['field'], $restrict['value']);

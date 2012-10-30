@@ -139,6 +139,8 @@ class Apartments_model extends MY_Model {
 							$apartment->area = (int) str_replace('Área', '', $value->plaintext);
 						}else if ($value->find('span', 0)->plaintext == 'Dorms'){
 							$apartment->rooms = (int) str_replace('Dorms', '', $value->plaintext);
+						}else if ($value->find('span', 0)->plaintext == 'Vagas'){
+							$apartment->parking = (int) str_replace('Vagas', '', $value->plaintext);
 						}
 					}
 
