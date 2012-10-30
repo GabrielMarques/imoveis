@@ -77,10 +77,9 @@ class Apartment extends DataMapper {
 		),
 		'parking' => array(
 			'type' => 'int',
-			'rules' => array('greater_than' => 0),
+			'rules' => array(),
 			'actions' => array('manage' => true, 'update' => false),
 		),
-
 		'price' => array(
 			'type' => 'currency',
 			'output_params'=> array('round' => '0'),
