@@ -75,9 +75,14 @@ class Apartment extends DataMapper {
 			'rules' => array('required', 'greater_than' => 0),
 			'actions' => array('manage' => true, 'update' => false),
 		),
+		'parking' => array(
+			'type' => 'int',
+			'rules' => array('greater_than' => 0),
+			'actions' => array('manage' => true, 'update' => false),
+		),
 		'price' => array(
 			'type' => 'currency',
-			'output_params'=> array('round' => '0'),			
+			'output_params'=> array('round' => '0'),
 			'rules' => array('required', 'greater_than' => 0),
 			'actions' => array('manage' => true, 'update' => false),
 		),
@@ -85,7 +90,7 @@ class Apartment extends DataMapper {
 			'type' => 'func',
 			'select_function' => array('', array('@price', '[/]', '@area'), 'm2_price'),
 			'output_type' => 'currency',
-			'output_params'=> array('round' => '0'),			
+			'output_params'=> array('round' => '0'),
 			'export_type' => 'currency',
 			'actions' => array('manage' => true),
 		),
@@ -151,10 +156,10 @@ class Apartment extends DataMapper {
 			'rules' => array('required'),
 			'actions' => array('manage' => true),
 		),
-		
+
 		'status' => array(
 			'type' => array('int' => array(1, 5)),
-			'values_array' => 'status_types',		
+			'values_array' => 'status_types',
 			'output_type' => 'label',
 			'output_params' => array('color_classes' => array(1 => 'label-important', 2 => 'label-warning', 3 => 'label-inverse', 4 => 'label-info', 5 => 'label-success')),
 			'rules' => array('required'),

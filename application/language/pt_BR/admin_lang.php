@@ -25,6 +25,7 @@ $lang['flagged'] = 'Dest.';
 $lang['past_prices'] = 'Preços anteriores';
 $lang['zap_images'] = 'Imagens';
 $lang['status'] = 'Situação';
+$lang['parking'] = 'Vagas';
 
 $lang['get_apartments'] = 'Buscar apartmentos ZAP';
 $lang['update_apartments'] = 'Atualizar apartmentos ZAP';
