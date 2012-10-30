@@ -80,6 +80,7 @@ class Apartment extends DataMapper {
 			'rules' => array('greater_than' => 0),
 			'actions' => array('manage' => true, 'update' => false),
 		),
+
 		'price' => array(
 			'type' => 'currency',
 			'output_params'=> array('round' => '0'),
