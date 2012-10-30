@@ -66,6 +66,7 @@ class Apartments extends Crud_Controller{
 		$this->filters->load('price', 'from_to', null, array('from_to_type' => 'number'));
 		$this->filters->load('area', 'from_to', null, array('from_to_type' => 'number'));
 		$this->filters->load('rooms', 'dropdown', null, array('array_ready' => true, 'values_array' => array(2 => 2, 3 => 3, 4 => 4)));
+		$this->filters->load('parking', 'dropdown', null, array('array_ready' => true, 'values_array' => array(1 => 1, 2 => 2, 3 => 3)));
 
 		// actions
 		$fields = array(
